@@ -10,19 +10,20 @@ if(isset($_POST['login'])) {
         $passwd = sha1($password);
         $sql = "SELECT * FROM users WHERE username ='$username' AND password ='$passwd'";
         $result = mysqli_query($connect, $sql) or die('Error');
-        if(mysqli_num_rows($result) > 0) {
-            while($row = mysqli_fetch_assoc($result)) {
-                $id = $row['id'];
-                $username = $row['username'];
-                $password = $row['password'];
-                $email = $row['email'];
 
-                $_SESSION['id'] = $id;
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $password;
-                $_SESSION['email'] = $email;
-                header('Location: index.php');
-            }
+        if(mysqli_num_rows($result) != 0) {
+
+            $row = $result->fetch_assoc();
+            $id = $row['id'];
+            $username = $row['username'];
+            $password = $row['password'];
+            $email = $row['email'];
+
+            $_SESSION['id'] = $id;
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+            $_SESSION['email'] = $email;
+            header('Location: index.php');
         } else {
             $error = "Username or Password is Incorrect!";
         }

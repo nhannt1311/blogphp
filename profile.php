@@ -33,8 +33,10 @@
                 $path = $short_url[0].'/'.$short_url[1].'/'.$short_url[2].'/'.$short_url[3];
                 $full_url = $path.'/'.'assets/upload/'.$file_name;
                 $id = $_SESSION['id'];
-                $sql = "INSERT INTO profile(profession, avatar, user_role) VALUES ('$profession', '$full_url', '$id')";
+                $sql = "INSERT INTO profile(profession, avatar, user_role, user_id) VALUES ('$profession', '$full_url', $id, $id)";
+
                 $query = $connect->query($sql);
+
                 if($query) {
                     header('Location: dashboard.php');
                 } else {
